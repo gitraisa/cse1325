@@ -1,0 +1,165 @@
+FULL CREDIT
+===========
+
+QUESTION 1: Why is String[] args changed to a LinkedList in WordSearch.main? (Hint: Examine the WordSearch constructor!)
+
+ANSWER: The 'String[] args' parameter is changed to a 'LinkedList' in 'WordSearch.main' method to make it easier to pass the command-line arguments to the 'WordSearch' constructor. The modification is made to match the constructor's parameter type, ensuring that the command-line arguments can be easily passed to the 'WordSearch' constructor without needing further convertions.
+
+
+
+
+QUESTION 2: How many puzzles did your machine need to solve with 1 thread to run for between 30 and 45 seconds: 
+
+ANSWER: 1200 puzzles
+
+
+QUESTION 3: Provide the output of 
+
+    time java WordSearch n 1000 ../puzzle??.txt 
+
+where n is 1 to 16 and 1000 is the number of puzzles specified in Question 2. NOTE: You can run all of these with a single bash command if you like (again, replace 1000 with your number of puzzles from Question 2):
+
+for i in {1..16} ; do time java WordSearch $i 1000 ../puzzle??.txt ; done
+
+Example Timing:
+
+ for i in {1..16} ; do time java WordSearch $i 1000 ../puzzle??.txt ; done
+1000 puzzles
+Thread 0: 0-999
+
+real	0m31.872s
+user	0m32.475s
+sys	0m0.224s
+
+1000 puzzles
+Thread 1: 500-999
+Thread 0: 0-499
+
+real	0m14.376s
+user	0m29.078s
+sys	0m0.229s
+
+...and so on
+
+
+
+YOUR Timing:
+
+ANSWER:
+
+1200 puzzles with 1 threads
+Thread 0: 0-1199
+
+real  0m37.158s
+user  0m37.858s
+sys   0m0.258s
+
+1200 puzzles with 2 threads
+Thread 1: 600-1199
+Thread 0: 0-599
+
+real    0m18.285s
+user    0m36.705s
+sys 0m0.308s
+
+1200 puzzles with 3 threads
+Thread 0: 0-399
+Thread 1: 400-799
+Thread 2: 800-1199
+
+real    0m12.624s
+user    0m37.274s
+sys 0m0.438s
+
+...and so on
+
+
+
+QUESTION 3: Does adding more threads continue to speed up the program? Do more threads ever slow down the program even slightly?  Why or why not?
+
+ANSWER: 
+
+Increasing the number of threads in a program can enhance its performance, primarily when tasks can be done simultaneously. 
+However, this performance boost doesn't always increase proportionally; there's a point of diminishing returns. The program's efficiency and the interplay between computational workload and available resources are significant factors.
+If you exceed the number of hardware cores with threads, it can lead to a slowdown due to the overhead involved in managing those threads. To identify the best thread count, it's essential to carry out testing and profiling,considering both the hardware and the specific computational tasks within the program.
+
+
+
+QUESTION 4: Does adding more threads increase the "system load" (sys), or is it constant regardless of the number of threads?  Why?
+
+ANSWER:
+Adding more threads to a program can indeed increase the "system load" ("sys" time) due to the additional overhead it incurs. Thread creation and management, synchronization, and context switching operations involve system-level activities, contributing to increased "sys" time as more threads are added. However, the impact on overall performance depends on the efficiency of parallelization and workload characteristics. While "sys" time may rise, if the system can effectively utilize multiple threads, the overall performance improvement can outweigh the increase in system load. Balancing the number of threads to optimize performance while managing system load is crucial in multi-threaded applications.
+
+
+
+BONUS
+=====
+
+QUESTION 5: Time your thread pool version of WordSearch exactly as you did for the full credit version. Post your timings here.
+
+YOUR Timing:
+
+ANSWER:
+
+1200 puzzles with 1 threads
+
+real    0m36.425s
+user    0m37.035s
+sys 0m0.307s
+
+1200 puzzles with 2 threads
+
+real    0m18.946s
+user    0m37.934s
+sys 0m0.420s
+
+1200 puzzles with 3 threads
+
+real    0m13.244s
+user    0m39.421s
+sys 0m0.376s
+
+...ans so on
+
+
+QUESTION 6: Is a thread pool faster, slower, or roughly equivalent in performance? 
+
+ANSWER: The thread pool implementation in the bonus code is likely to offer roughly equivalent performance to the previous single-threaded version when solving puzzles. The effectiveness of the thread pool depends on factors such as the number of available CPU cores, the nature of the puzzle-solving workload, and the efficiency of thread coordination. If the puzzles are CPU-bound and the machine has multiple cores, the thread pool may speed up the process by distributing tasks across cores. However, overhead from thread creation and coordination can offset potential gains. Thread reuse within a fixed-size pool can reduce creation overhead. Ultimately, performance benefits depend on specific workload characteristics and machine resources, requiring benchmarking for accurate assessment.
+
+
+
+QUESTION 7: Compare your full credit and bonus solution code. Which do you believe is more supportable over a long lifetime of evolving hardware and environments?
+
+ANSWER: The bonus solution with the dynamic thread pool is more likely to be supportable over a long lifetime of evolving hardware and environments. It offers scalability, adaptability to changing CPU core counts, and efficient resource utilization. The structured thread management and dynamic thread allocation make it a more maintainable choice compared to the fixed-thread full credit solution, which lacks adaptability. However, the bonus solution's complexity necessitates thorough documentation and testing to ensure its long-term supportability.
+
+
+
+
+EXTREME BONUS
+=============
+
+QUESTION 8: Post your final timings here. (The "race" on Antares will determine the actual winner - this just lets me know you're competing!)
+
+1200 puzzles with 1 threads
+
+real    0m35.896s
+user    0m36.512s
+sys 0m0.248s
+
+1200 puzzles with 2 threads
+
+real    0m18.643s
+user    0m37.569s
+sys 0m0.344s
+
+1200 puzzles with 3 threads
+
+real    0m12.850s
+user    0m38.412s
+sys 0m0.354s
+
+
+
+
+
+
